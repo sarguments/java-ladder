@@ -17,7 +17,7 @@ public class LadderGameTest {
     }
 
     @Test
-    public void test() {
+        public void test() {
         LadderGame ladderGame = new LadderGame();
     }
 }
