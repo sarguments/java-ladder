@@ -11,8 +11,10 @@ public class LadderGame {
         initLadderRowProc();
     }
 
-    String[][] getLadderArr() {
-        return ladderArr;
+    private void initLadderRowProc() {
+        for (String[] aLadderArr : ladderArr) {
+            initLadderColumnProc(aLadderArr);
+        }
     }
 
     private void initLadderColumnProc(String[] colArr) {
@@ -21,13 +23,7 @@ public class LadderGame {
         }
     }
 
-    private void initLadderRowProc() {
-        for (int i = 0; i < ladderArr.length; i++) {
-            initLadderColumnProc(ladderArr[i]);
-        }
-    }
-
-    private void drawLineProc(String[] colArr, int index) {
+    void drawLineProc(String[] colArr, int index) {
         if (index % 2 == 1) {
             drawRowLine(colArr, index);
             return;
@@ -43,7 +39,10 @@ public class LadderGame {
         }
 
         colArr[index] = " ";
-        return;
+    }
+
+    String[][] getLadderArr() {
+        return ladderArr;
     }
 
     public static void main(String[] args) {

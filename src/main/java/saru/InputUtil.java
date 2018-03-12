@@ -8,7 +8,7 @@ public class InputUtil {
 
     private static Scanner scanner = new Scanner(System.in);
 
-    public static String getUserInput() {
+    private static String getUserInput() {
         return scanner.next();
     }
 
