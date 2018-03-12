@@ -11,4 +11,10 @@ public class OutputUtil {
 
         System.out.println();
     }
+
+    public static void printRowArrays(String[][] arr, int height, int columnNum) {
+        for(int i = 0; i < height; i++) {
+            OutputUtil.printArr(arr[i], columnNum);
+        }
+    }
 }

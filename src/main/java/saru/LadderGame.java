@@ -1,42 +1,23 @@
 package saru;
 
-import java.util.Random;
-
 public class LadderGame {
-    public LadderGame() {
-    }
-
-    void inputProc() {
-        System.out.println("유저수:");
-        String userInput = InputUtil.getUserInput();
-        int userNum = Integer.parseInt(userInput);
-
-        System.out.println("높이");
-        userInput = InputUtil.getUserInput();
-
-        int realColumnNum = userNum * 2 - 1;
-        int ladderHeight = Integer.parseInt(userInput);
-
-        initLadder(ladderHeight, realColumnNum);
-    }
-
-    void printLadder() {
-        for(int i = 0; i < ladderHeight; i++) {
-            OutputUtil.printArr(ladderArr[i], realColumnNum);
-        }
-    }
-
     private int ladderHeight;
     private int realColumnNum;
     private String[][] ladderArr;
-    private Random random = new Random();
 
-    private void initLadder(int ladderHeight, int realColumnNum) {
+    public LadderGame() {
+    }
+
+    void initLadder(int ladderHeight, int realColumnNum) {
         this.ladderHeight = ladderHeight;
         this.realColumnNum = realColumnNum;
 
         ladderArr = new String[ladderHeight][realColumnNum];
         initLadderRowProc();
+    }
+
+    String[][] getLadderArr() {
+        return ladderArr;
     }
 
     private void initLadderColumnProc(String[] colArr) {
@@ -46,7 +27,7 @@ public class LadderGame {
     }
 
     private void initLadderRowProc() {
-        for(int i = 0; i < ladderHeight; i++) {
+        for (int i = 0; i < ladderHeight; i++) {
             initLadderColumnProc(ladderArr[i]);
         }
     }
@@ -61,7 +42,7 @@ public class LadderGame {
     }
 
     private void drawRowLine(String[] colArr, int index) {
-        if (random.nextInt(2) == 1) {
+        if (LadderGameUtil.getRand(2) == 1) {
             colArr[index] = "-";
             return;
         }
@@ -72,7 +53,13 @@ public class LadderGame {
 
     public static void main(String[] args) {
         LadderGame ladderGame = new LadderGame();
-        ladderGame.inputProc();
-        ladderGame.printLadder();
+
+        int userNum = InputUtil.getUserNum();
+        int height = InputUtil.getHeight();
+
+        int columnNum = InputUtil.getRealColumnNum(userNum);
+        ladderGame.initLadder(height, columnNum);
+
+        OutputUtil.printRowArrays(ladderGame.getLadderArr(), height, columnNum);
     }
 }
