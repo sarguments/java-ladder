@@ -1,17 +1,12 @@
 package saru;
 
 public class LadderGame {
-    private int ladderHeight;
-    private int realColumnNum;
     private String[][] ladderArr;
 
     public LadderGame() {
     }
 
     void initLadder(int ladderHeight, int realColumnNum) {
-        this.ladderHeight = ladderHeight;
-        this.realColumnNum = realColumnNum;
-
         ladderArr = new String[ladderHeight][realColumnNum];
         initLadderRowProc();
     }
@@ -21,13 +16,13 @@ public class LadderGame {
     }
 
     private void initLadderColumnProc(String[] colArr) {
-        for (int i = 0; i < realColumnNum; i++) {
+        for (int i = 0; i < colArr.length; i++) {
             drawLineProc(colArr, i);
         }
     }
 
     private void initLadderRowProc() {
-        for (int i = 0; i < ladderHeight; i++) {
+        for (int i = 0; i < ladderArr.length; i++) {
             initLadderColumnProc(ladderArr[i]);
         }
     }
