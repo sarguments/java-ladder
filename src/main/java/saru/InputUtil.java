@@ -16,6 +16,13 @@ public class InputUtil {
         return userNum * 2 - 1;
     }
 
+    public static boolean checkValid(int userNum, int height) {
+        if (userNum < 0 || height < 0) {
+            System.out.println("제대로 입력하세요");
+            return true;
+        }
+        return false;
+    }
 
     public static int getUserNum() {
         System.out.println("유저수:");

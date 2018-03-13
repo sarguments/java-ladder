@@ -1,48 +1,58 @@
 package saru;
 
 public class LadderGame {
-    private String[][] ladderArr;
+    private Line[] ladderLines;
 
     public LadderGame() {
     }
 
     void initLadder(int ladderHeight, int realColumnNum) {
-        ladderArr = new String[ladderHeight][realColumnNum];
+        ladderLines = new Line[ladderHeight];
+
+        for (int i = 0; i < ladderHeight; i++) {
+            ladderLines[i] = new Line(realColumnNum);
+        }
+
         initLadderRowProc();
     }
 
-    private void initLadderRowProc() {
-        for (String[] aLadderArr : ladderArr) {
-            initLadderColumnProc(aLadderArr);
+    void initLadderRowProc() {
+        for (Line ladderLine : ladderLines) {
+            initLadderColumnProc(ladderLine);
         }
     }
 
-    private void initLadderColumnProc(String[] colArr) {
-        for (int i = 0; i < colArr.length; i++) {
-            drawLineProc(colArr, i);
+    void initLadderColumnProc(Line colLine) {
+        for (int i = 0; i < colLine.getPointsLength(); i++) {
+            drawLineProc(colLine, i);
         }
     }
 
-    void drawLineProc(String[] colArr, int index) {
+    void drawLineProc(Line colLine, int index) {
+
         if (index % 2 == 1) {
-            drawRowLine(colArr, index);
+            drawRowLine(colLine, index);
             return;
         }
 
-        colArr[index] = "|";
+        colLine.drawPoint(index, "|");
     }
 
-    private void drawRowLine(String[] colArr, int index) {
-        if (LadderGameUtil.getRand(2) == 1) {
-            colArr[index] = "-";
+    // 가로 선
+    void drawRowLine(Line colLine, int index) {
+        int randNum = LadderGameUtil.getRand(2);
+        if (colLine.canDrawLine(randNum)) {
+            colLine.drawPoint(index, "-");
             return;
         }
 
-        colArr[index] = " ";
+        colLine.drawPoint(index, " ");
     }
 
-    String[][] getLadderArr() {
-        return ladderArr;
+    ///////////////////////////////////////////////////////////////
+
+    Line[] getLadderLines() {
+        return ladderLines;
     }
 
     public static void main(String[] args) {
@@ -51,9 +61,11 @@ public class LadderGame {
         int userNum = InputUtil.getUserNum();
         int height = InputUtil.getHeight();
 
+        if (InputUtil.checkValid(userNum, height)) return;
+
         int columnNum = InputUtil.getRealColumnNum(userNum);
         ladderGame.initLadder(height, columnNum);
 
-        OutputUtil.printRowArrays(ladderGame.getLadderArr(), height, columnNum);
+        OutputUtil.printRowArray(ladderGame.getLadderLines());
     }
 }
