@@ -6,11 +6,22 @@ public class OutputUtil {
     private OutputUtil() {
     }
 
-    public static void printWholeArray(ArrayList<Line> lines) {
+    public static void printLadderAndNames(ArrayList<String> names, ArrayList<Line> lines) {
+        printNames(names);
+        printLadder(lines);
+    }
+
+    public static void printNames(ArrayList<String> names) {
+        for (String name : names) {
+            System.out.printf("%-6s", name);
+        }
+        System.out.println();
+    }
+
+    public static void printLadder(ArrayList<Line> lines) {
         for (Line line : lines) {
             OutputUtil.printMultiLines(line.getPoints());
         }
-
         System.out.println();
     }
 
@@ -38,9 +49,4 @@ public class OutputUtil {
         }
         System.out.print("     ");
     }
-
-    // TODO 이름 입력받아서(5글자제한, 쉼표구분) 인원수 자동 카운트
-    // TODO 사람 이름 출력
-    // TODO 이름 길이에 따른 사다리폭 조절
-    // TODO 라인 겹치지 않게
 }

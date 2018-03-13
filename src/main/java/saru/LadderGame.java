@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class LadderGame {
     private ArrayList<Line> ladderLines;
+    private ArrayList<String> names = new ArrayList<>();
 
     public LadderGame() {
     }
@@ -14,18 +15,31 @@ public class LadderGame {
     }
 
     void recursiveProc() {
-        int userNum = InputUtil.getUserNum();
+        String[] nameArr = InputUtil.getUserName();
+        inputNames(nameArr);
+
         int height = InputUtil.getHeight();
 
-        if (!InputUtil.checkValid(userNum, height)) {
+        if (!InputUtil.checkValid(nameArr, height)) {
+            clearBeforeRecursive();
             recursiveProc();
             return;
         }
 
-        int columnNum = InputUtil.getRealColumnNum(userNum);
-        this.initLadder(height, columnNum);
+        this.initLadder(height, InputUtil.getRealColumnNum(nameArr.length));
 
-        OutputUtil.printWholeArray(this.getLadderLines());
+        OutputUtil.printLadderAndNames(this.names, this.getLadderLines());
+    }
+
+    void clearBeforeRecursive() {
+        names.clear();
+        InputUtil.flush();
+    }
+
+    void inputNames(String[] nameArr) {
+        for (String str : nameArr) {
+            names.add(str);
+        }
     }
 
     ArrayList<Line> getLadderLines() {
@@ -59,13 +73,10 @@ public class LadderGame {
             drawRowLine(colLine, index);
             return;
         }
-
-        //colLine.drawPoint(index, false);
     }
-    // 가로 선
 
     void drawRowLine(Line colLine, int index) {
-        int randNum = LadderGameUtil.getRand(2);
+        int randNum = LadderGameUtil.getRand(4);
         if (colLine.canDrawLine(randNum)) {
             colLine.drawPoint(index, true);
             return;
