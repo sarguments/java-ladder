@@ -6,6 +6,30 @@ public class LadderGame {
     public LadderGame() {
     }
 
+    public static void main(String[] args) {
+        LadderGame ladderGame = new LadderGame();
+        ladderGame.recursiveProc();
+    }
+
+    void recursiveProc() {
+        int userNum = InputUtil.getUserNum();
+        int height = InputUtil.getHeight();
+
+        if (!InputUtil.checkValid(userNum, height)) {
+            recursiveProc();
+            return;
+        }
+
+        int columnNum = InputUtil.getRealColumnNum(userNum);
+        this.initLadder(height, columnNum);
+
+        OutputUtil.printWholeArray(this.getLadderLines());
+    }
+
+    Line[] getLadderLines() {
+        return ladderLines;
+    }
+
     void initLadder(int ladderHeight, int realColumnNum) {
         ladderLines = new Line[ladderHeight];
 
@@ -37,8 +61,8 @@ public class LadderGame {
 
         //colLine.drawPoint(index, false);
     }
-
     // 가로 선
+
     void drawRowLine(Line colLine, int index) {
         int randNum = LadderGameUtil.getRand(2);
         if (colLine.canDrawLine(randNum)) {
@@ -47,25 +71,5 @@ public class LadderGame {
         }
 
         colLine.drawPoint(index, false);
-    }
-
-    ///////////////////////////////////////////////////////////////
-
-    Line[] getLadderLines() {
-        return ladderLines;
-    }
-
-    public static void main(String[] args) {
-        LadderGame ladderGame = new LadderGame();
-
-        int userNum = InputUtil.getUserNum();
-        int height = InputUtil.getHeight();
-
-        if (InputUtil.checkValid(userNum, height)) return;
-
-        int columnNum = InputUtil.getRealColumnNum(userNum);
-        ladderGame.initLadder(height, columnNum);
-
-        OutputUtil.printWholeArray(ladderGame.getLadderLines());
     }
 }

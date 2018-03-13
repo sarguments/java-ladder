@@ -19,9 +19,9 @@ public class InputUtil {
     public static boolean checkValid(int userNum, int height) {
         if (userNum < 0 || height < 0) {
             System.out.println("제대로 입력하세요");
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     public static int getUserNum() {
