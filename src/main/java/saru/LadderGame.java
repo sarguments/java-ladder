@@ -1,7 +1,9 @@
 package saru;
 
+import java.util.ArrayList;
+
 public class LadderGame {
-    private Line[] ladderLines;
+    private ArrayList<Line> ladderLines;
 
     public LadderGame() {
     }
@@ -26,15 +28,15 @@ public class LadderGame {
         OutputUtil.printWholeArray(this.getLadderLines());
     }
 
-    Line[] getLadderLines() {
+    ArrayList<Line> getLadderLines() {
         return ladderLines;
     }
 
     void initLadder(int ladderHeight, int realColumnNum) {
-        ladderLines = new Line[ladderHeight];
+        ladderLines = new ArrayList<>(ladderHeight);
 
         for (int i = 0; i < ladderHeight; i++) {
-            ladderLines[i] = new Line(realColumnNum);
+            ladderLines.add(new Line(realColumnNum));
         }
 
         initLadderRowProc();
@@ -53,7 +55,6 @@ public class LadderGame {
     }
 
     void drawLineProc(Line colLine, int index) {
-
         if (index % 2 == 1) {
             drawRowLine(colLine, index);
             return;

@@ -1,18 +1,23 @@
 package saru;
 
+import java.util.ArrayList;
+
 public class Line {
-    private boolean[] points;
+    private ArrayList<Boolean> points;
 
     public Line(int columnNum) {
-        points = new boolean[columnNum];
+        points = new ArrayList<>(columnNum);
+        for(int i = 0; i < columnNum; i++) {
+            points.add(false);
+        }
     }
 
-    boolean[] getPoints() {
+    ArrayList<Boolean> getPoints() {
         return points;
     }
 
     int getPointsLength() {
-        return points.length;
+        return points.size();
     }
 
     boolean canDrawLine(int randNum) {
@@ -23,6 +28,6 @@ public class Line {
     }
 
     void drawPoint(int index, boolean isLine) {
-        points[index] = isLine;
+        points.set(index, isLine);
     }
 }
