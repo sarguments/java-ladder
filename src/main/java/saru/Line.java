@@ -1,13 +1,13 @@
 package saru;
 
 public class Line {
-    private String[] points;
+    private boolean[] points;
 
     public Line(int columnNum) {
-        points = new String[columnNum];
+        points = new boolean[columnNum];
     }
 
-    String[] getPoints() {
+    boolean[] getPoints() {
         return points;
     }
 
@@ -22,7 +22,7 @@ public class Line {
         return false;
     }
 
-    void drawPoint(int index, String str) {
-        points[index] = str;
+    void drawPoint(int index, boolean isLine) {
+        points[index] = isLine;
     }
 }

@@ -35,18 +35,18 @@ public class LadderGame {
             return;
         }
 
-        colLine.drawPoint(index, "|");
+        //colLine.drawPoint(index, false);
     }
 
     // 가로 선
     void drawRowLine(Line colLine, int index) {
         int randNum = LadderGameUtil.getRand(2);
         if (colLine.canDrawLine(randNum)) {
-            colLine.drawPoint(index, "-");
+            colLine.drawPoint(index, true);
             return;
         }
 
-        colLine.drawPoint(index, " ");
+        colLine.drawPoint(index, false);
     }
 
     ///////////////////////////////////////////////////////////////
@@ -66,6 +66,6 @@ public class LadderGame {
         int columnNum = InputUtil.getRealColumnNum(userNum);
         ladderGame.initLadder(height, columnNum);
 
-        OutputUtil.printRowArray(ladderGame.getLadderLines());
+        OutputUtil.printWholeArray(ladderGame.getLadderLines());
     }
 }
