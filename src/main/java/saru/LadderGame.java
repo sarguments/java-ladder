@@ -1,53 +1,57 @@
 package saru;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class LadderGame {
+    public static final int LIMIT = 4;
+
+    private static LadderInput ladderInput = new LadderInput();
+    private static LadderOutput ladderOutput = new LadderOutput();
+
     private ArrayList<Line> ladderLines;
     private ArrayList<String> names = new ArrayList<>();
 
-    public LadderGame() {
+    public LadderGame(int ladderHeight, String[] nameArray) {
+        inputNames(nameArray);
+        initLadder(ladderHeight, nameArray.length);
     }
 
     public static void main(String[] args) {
-        LadderGame ladderGame = new LadderGame();
-        ladderGame.recursiveProc();
+        String[] nameArr;
+        int ladderHeight;
+
+        do {
+            nameArr = ladderInput.getUserName();
+            ladderHeight = ladderInput.getHeight();
+            ladderInput.flush();
+        } while (!ladderInput.checkValid(nameArr, ladderHeight));
+
+        LadderGame ladderGame = new LadderGame(ladderHeight, nameArr);
+
+        ladderOutput.printLadderAndNames(ladderGame.getNames(), ladderGame.getLadderLines());
     }
 
-    void recursiveProc() {
-        String[] nameArr = InputUtil.getUserName();
-        inputNames(nameArr);
-
-        int height = InputUtil.getHeight();
-
-        if (!InputUtil.checkValid(nameArr, height)) {
-            clearBeforeRecursive();
-            recursiveProc();
-            return;
-        }
-
-        this.initLadder(height, InputUtil.getRealColumnNum(nameArr.length));
-
-        OutputUtil.printLadderAndNames(this.names, this.getLadderLines());
-    }
-
-    void clearBeforeRecursive() {
-        names.clear();
-        InputUtil.flush();
+    // 유저가 3명일 경우 5 (3 * 2 - 1) .. 식 자체를 상수화 하기는 어려울 것 같음.
+    int getRealColumnNum(int userNum) {
+        return userNum * 2 - 1;
     }
 
     void inputNames(String[] nameArr) {
-        for (String str : nameArr) {
-            names.add(str);
-        }
+        Collections.addAll(names, nameArr);
+    }
+
+    ArrayList<String> getNames() {
+        return names;
     }
 
     ArrayList<Line> getLadderLines() {
         return ladderLines;
     }
 
-    void initLadder(int ladderHeight, int realColumnNum) {
+    void initLadder(int ladderHeight, int columnNum) {
         ladderLines = new ArrayList<>(ladderHeight);
+        int realColumnNum = getRealColumnNum(columnNum);
 
         for (int i = 0; i < ladderHeight; i++) {
             ladderLines.add(new Line(realColumnNum));
@@ -76,7 +80,7 @@ public class LadderGame {
     }
 
     void drawRowLine(Line colLine, int index) {
-        int randNum = LadderGameUtil.getRand(4);
+        int randNum = LadderGameUtil.getRand(LIMIT);
         if (colLine.canDrawLine(randNum)) {
             colLine.drawPoint(index, true);
             return;

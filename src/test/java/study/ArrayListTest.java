@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class ArrayListTest {
     @Test
     public void study() throws Exception {
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         list.add("first");
         list.add("second");
 
