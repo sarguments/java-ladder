@@ -1,8 +1,7 @@
 package saru;
 
 import saru.domain.LadderGame;
-import saru.view.LadderInput;
-import saru.view.LadderOutput;
+import saru.view.*;
 
 public class LadderMain {
     private static LadderInput ladderInput = new LadderInput();
@@ -18,7 +17,6 @@ public class LadderMain {
             ladderInput.flush();
         } while (!ladderInput.checkValid(nameArr, ladderHeight));
 
-        LadderGame ladderGame = new LadderGame(ladderHeight, nameArr);
-        ladderOutput.printLadderAndNames(ladderGame.getNames(), ladderGame.getLadderLines());
+        ladderOutput.sendOutputObject(new LadderGame(ladderHeight, nameArr));
     }
 }

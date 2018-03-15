@@ -1,7 +1,6 @@
 package saru.domain;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 
 // TODO 각각의 역할에 맞도록 패키지를 분리하고 접근 제어자를 적절히 사용하도록 리팩토링한다.
 
