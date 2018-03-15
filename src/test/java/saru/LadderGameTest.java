@@ -39,7 +39,7 @@ public class LadderGameTest {
     }
 
     @Test
-    public void checkIsExisNotLineAfterFirstColumn() {
+    public void checkIsExistNotLineAfterFirstColumn() {
         pointsList.set(1, true);
         assertFalse(line.checkPointHasInterLine(3)); // 그 다음줄에 생성 불가능
     }
