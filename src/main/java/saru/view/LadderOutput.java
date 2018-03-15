@@ -1,4 +1,6 @@
-package saru;
+package saru.view;
+
+import saru.domain.Line;
 
 import java.util.ArrayList;
 
@@ -6,7 +8,7 @@ public class LadderOutput {
     public LadderOutput() {
     }
 
-    void printLadderAndNames(ArrayList<String> names, ArrayList<Line> lines) {
+    public void printLadderAndNames(ArrayList<String> names, ArrayList<Line> lines) {
         printNames(names);
         printLadder(lines);
     }

@@ -1,4 +1,4 @@
-package saru;
+package saru.view;
 
 import java.util.Scanner;
 
@@ -15,7 +15,7 @@ public class LadderInput {
     public LadderInput() {
     }
 
-    boolean checkValid(String[] names, int height) {
+    public boolean checkValid(String[] names, int height) {
         if (height <= 0) {
             System.out.println(INCORRECT_HEIGHT_INPUT);
             return false;
@@ -29,7 +29,25 @@ public class LadderInput {
         return true;
     }
 
-    boolean checkNamesProc(String[] names) {
+    public String[] getUserName() {
+        System.out.println(INPUT_USER_NAMES);
+        String userInput = LadderInput.scanner.nextLine();
+        return userInput.split(REGEX);
+    }
+
+    public int getHeight() {
+        String userInput;
+
+        System.out.println(INPUT_MAX_LADDER_LENGTH);
+        userInput = LadderInput.scanner.next();
+        return Integer.parseInt(userInput);
+    }
+
+    public void flush() {
+        scanner.nextLine();
+    }
+
+    private boolean checkNamesProc(String[] names) {
         int faultNum = 0;
 
         for (String name : names) {
@@ -39,29 +57,11 @@ public class LadderInput {
         return faultNum == 0;
     }
 
-    int countCheckNameFault(String name) {
+    private int countCheckNameFault(String name) {
         return checkNameLength(name) ? 0 : 1;
     }
 
-    boolean checkNameLength(String name) {
-        return (name.length() >= MAX_NAME_LENGTH) ? false : true;
-    }
-
-    String[] getUserName() {
-        System.out.println(INPUT_USER_NAMES);
-        String userInput = LadderInput.scanner.nextLine();
-        return userInput.split(REGEX);
-    }
-
-    int getHeight() {
-        String userInput;
-
-        System.out.println(INPUT_MAX_LADDER_LENGTH);
-        userInput = LadderInput.scanner.next();
-        return Integer.parseInt(userInput);
-    }
-
-    void flush() {
-        scanner.nextLine();
+    private boolean checkNameLength(String name) {
+        return (name.length() > MAX_NAME_LENGTH) ? false : true;
     }
 }
