@@ -16,13 +16,9 @@ public class LadderGameTest {
     private ArrayList<Boolean> pointsList;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         line = new Line(10);
         pointsList = line.getPoints();
-    }
-
-    @After
-    public void tearDown() throws Exception {
     }
 
     @Test
@@ -73,9 +69,7 @@ public class LadderGameTest {
     @Test
     public void ladderCreate() {
         List names = Arrays.asList("pobi", "honux", "jk");
-        String[] strArr = (String[]) names.toArray();
-
-        LadderGame ladderGame = new LadderGame(10, strArr);
+        LadderGame ladderGame = new LadderGame(10, (String[]) names.toArray());
 
         assertThat(ladderGame.getNames().get(0), is(names.get(0)));
         assertThat(ladderGame.getLadderLines().size(), is(10));

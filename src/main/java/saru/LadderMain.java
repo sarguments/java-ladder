@@ -5,7 +5,7 @@ import saru.view.*;
 
 public class LadderMain {
     private static LadderInput ladderInput = new LadderInput();
-    private static LadderOutput ladderOutput = new LadderOutput();
+    static LadderOutput ladderOutput = new LadderOutput();
 
     public static void main(String[] args) {
         String[] nameArr;

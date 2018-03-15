@@ -58,7 +58,6 @@ public class LadderGame {
     private void drawLineProc(Line colLine, int index) {
         if (index % 2 == 1) {
             drawRowLine(colLine, index);
-            return;
         }
     }
 

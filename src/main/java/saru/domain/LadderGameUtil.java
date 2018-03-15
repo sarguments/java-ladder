@@ -2,7 +2,7 @@ package saru.domain;
 
 import java.util.Random;
 
-public class LadderGameUtil {
+class LadderGameUtil {
     private static Random random = new Random();
 
     private LadderGameUtil() {

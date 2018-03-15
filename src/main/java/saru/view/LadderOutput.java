@@ -5,13 +5,10 @@ import saru.domain.*;
 import java.util.ArrayList;
 
 public class LadderOutput {
-    private LadderGame ladderGame;
-
     public LadderOutput() {
     }
 
     public void sendOutputObject(LadderGame ladderGame) {
-        this.ladderGame = ladderGame;
         printNames(ladderGame.getNames());
         printLadder(ladderGame.getLadderLines());
     }

@@ -39,10 +39,7 @@ public class Line {
     }
 
     boolean canDrawLine(int randNum) {
-        if (randNum == 1) {
-            return true;
-        }
-        return false;
+        return randNum == 1;
     }
 
     void drawPoint(int index, boolean isLine) {
