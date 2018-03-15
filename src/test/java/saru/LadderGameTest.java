@@ -11,7 +11,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 public class LadderGameTest {
-    private static LadderInput ladderInput = new LadderInput();
+    private static final LadderInput ladderInput = new LadderInput();
     private Line line;
     private ArrayList<Boolean> pointsList;
 

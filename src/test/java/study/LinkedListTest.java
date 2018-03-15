@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 public class LinkedListTest {
     @Test
-    public void study() throws Exception {
+    public void study() {
         LinkedList<String> list = new LinkedList<>();
         list.add("first");
         list.add("second");

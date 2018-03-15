@@ -8,7 +8,7 @@ public class LadderGame {
     private static final int LIMIT = 4;
 
     private ArrayList<Line> ladderLines;
-    private ArrayList<String> names = new ArrayList<>();
+    private final ArrayList<String> names = new ArrayList<>();
 
     public LadderGame(int ladderHeight, String[] nameArray) {
         inputNames(nameArray);

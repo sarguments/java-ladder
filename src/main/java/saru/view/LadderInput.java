@@ -10,7 +10,7 @@ public class LadderInput {
     private static final String REGEX = ",";
     private static final int MAX_NAME_LENGTH = 5;
 
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public LadderInput() {
     }

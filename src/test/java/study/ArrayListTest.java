@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ArrayListTest {
     @Test
-    public void study() throws Exception {
+    public void study() {
         ArrayList<String> list = new ArrayList<>();
         list.add("first");
         list.add("second");

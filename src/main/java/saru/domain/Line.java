@@ -3,7 +3,7 @@ package saru.domain;
 import java.util.ArrayList;
 
 public class Line {
-    private ArrayList<Boolean> points;
+    private final ArrayList<Boolean> points;
 
     public Line(int columnNum) {
         points = new ArrayList<>(columnNum);

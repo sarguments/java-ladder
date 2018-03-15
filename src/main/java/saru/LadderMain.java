@@ -3,9 +3,9 @@ package saru;
 import saru.domain.LadderGame;
 import saru.view.*;
 
-public class LadderMain {
-    private static LadderInput ladderInput = new LadderInput();
-    static LadderOutput ladderOutput = new LadderOutput();
+class LadderMain {
+    private static final LadderInput ladderInput = new LadderInput();
+    private static final LadderOutput ladderOutput = new LadderOutput();
 
     public static void main(String[] args) {
         String[] nameArr;
