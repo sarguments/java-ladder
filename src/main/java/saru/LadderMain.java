@@ -8,15 +8,16 @@ class LadderMain {
     private static final LadderOutput ladderOutput = new LadderOutput();
 
     public static void main(String[] args) {
-        String[] nameArr;
+        String[] nameArr, destination;
         int ladderHeight;
 
         do {
             nameArr = ladderInput.getUserName();
+            destination = ladderInput.getDestination();
             ladderHeight = ladderInput.getHeight();
             ladderInput.flush();
-        } while (!ladderInput.checkValid(nameArr, ladderHeight));
+        } while (!ladderInput.checkValid(nameArr, destination, ladderHeight));
 
-        ladderOutput.sendOutputObject(new LadderGame(ladderHeight, nameArr));
+        ladderOutput.sendOutputObject(new LadderGame(ladderHeight, destination, nameArr));
     }
 }

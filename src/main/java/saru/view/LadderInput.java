@@ -9,28 +9,43 @@ public class LadderInput {
     private static final String INPUT_MAX_LADDER_LENGTH = "최대 사다리 높이는 몇 개인가요?";
     private static final String REGEX = ",";
     private static final int MAX_NAME_LENGTH = 5;
-
     private static final Scanner scanner = new Scanner(System.in);
+
+    public static final String INPUT_DESTINATION = "실행 결과를 입력하세요. (결과는 쉼표(,)로 구분하세요)";
+    public static final String INCORRECT_DESTINATION = "실행 결과를 제대로 입력하세요";
 
     public LadderInput() {
     }
 
-    public boolean checkValid(String[] names, int height) {
-        if (height <= 0) {
-            System.out.println(INCORRECT_HEIGHT_INPUT);
+    public boolean checkValid(String[] names, String[] destination, int height) {
+        if (checkCondition(height <= 0, INCORRECT_HEIGHT_INPUT))
             return false;
-        }
 
-        if (names.length <= 0 || !checkNamesProc(names)) {
-            System.out.println(INCORRECT_NAME_INPUT);
+        if (checkCondition(!checkNamesProc(names), INCORRECT_NAME_INPUT))
             return false;
-        }
+
+        if (checkCondition(!checkNamesProc(destination), INCORRECT_DESTINATION))
+            return false;
 
         return true;
     }
 
+    public boolean checkCondition(boolean condition, String errorMsg) {
+        if (condition) {
+            System.out.println(errorMsg);
+            return true;
+        }
+        return false;
+    }
+
     public String[] getUserName() {
         System.out.println(INPUT_USER_NAMES);
+        String userInput = LadderInput.scanner.nextLine();
+        return userInput.split(REGEX);
+    }
+
+    public String[] getDestination() {
+        System.out.println(INPUT_DESTINATION);
         String userInput = LadderInput.scanner.nextLine();
         return userInput.split(REGEX);
     }

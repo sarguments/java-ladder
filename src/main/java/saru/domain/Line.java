@@ -17,7 +17,7 @@ public class Line {
     }
 
     // 오른쪽 방향으로 진행하면서 왼쪽에 없으면 생성하도록
-    public boolean checkPointHasInterLine(int index) {
+    public boolean checkPointHasLeftLine(int index) {
         if (index < 2) {
             // 1은 무조건 만들 수 있음
             return true;
@@ -34,6 +34,16 @@ public class Line {
         return false;
     }
 
+    // TODO : 라인의 특정 인덱스에 선이 있는지 없는지
+    boolean checkSpecificPointHasLine(int index) {
+        // 인덱스 범위 체크
+        if (index < 0 || index > points.size() - 1) {
+            return false;
+        }
+
+        return points.get(index);
+    }
+
     int getPointsLength() {
         return points.size();
     }
@@ -44,7 +54,7 @@ public class Line {
 
     void drawPoint(int index, boolean isLine) {
         // 범위가 잘못 되었거나 왼쪽에 선이 이미 있을 경우 그냥 return
-        if (!checkPointHasInterLine(index)) {
+        if (!checkPointHasLeftLine(index)) {
             return;
         }
 

@@ -3,35 +3,94 @@ package saru.view;
 import saru.domain.*;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class LadderOutput {
+    private static final int COLUMN = 2;
+    private static Scanner scanner = new Scanner(System.in);
+
     public LadderOutput() {
     }
 
     public void sendOutputObject(LadderGame ladderGame) {
-        printNames(ladderGame.getNames());
+        printUserNames(ladderGame.getUsers());
         printLadder(ladderGame.getLadderLines());
+        printDestination(ladderGame.getDestinations());
+
+        boolean isAllResult = false;
+        while (isAllResult != true) {
+            isAllResult = promptResult(ladderGame);
+        }
     }
 
-    private void printNames(ArrayList<String> names) {
-        for (String name : names) {
-            System.out.printf("%-6s", name);
+    private void printUserNames(ArrayList<User> users) {
+        for (User user : users) {
+            System.out.printf("%-6s", user.getName());
         }
         System.out.println();
+    }
+
+    private boolean promptResult(LadderGame ladderGame) {
+        String userChoice = getUserChoice();
+        if (checkIsAllResult(ladderGame, userChoice)) return true;
+
+        ArrayList<User> users = ladderGame.getUsers();
+        for (int i = 0; i < users.size(); i++) {
+            User user = users.get(i);
+            if (findResultDestination(ladderGame, userChoice, user)) return false;
+        }
+        return false;
+    }
+
+    private boolean checkIsAllResult(LadderGame ladderGame, String userChoice) {
+        if (userChoice.equals("all")) {
+            printResultAll(ladderGame.getUsers(), ladderGame.getDestinations());
+            return true;
+        }
+        return false;
+    }
+
+    private boolean findResultDestination(LadderGame ladderGame, String userChoice, User user) {
+        if (user.getName().equals(userChoice)) {
+            // 개별 출력
+            printOneResult(user.getColumn() / COLUMN, ladderGame.getDestinations());
+            return true;
+        }
+        return false;
+    }
+
+    private String getUserChoice() {
+        return scanner.nextLine();
+    }
+
+    private void printDestination(ArrayList<String> destinations) {
+        for (int i = 0; i < destinations.size(); i++) {
+            System.out.printf("%-6s", destinations.get(i));
+        }
+        System.out.print("\n\n");
+    }
+
+    private void printResultAll(ArrayList<User> users, ArrayList<String> destination) {
+        // 각 사용자의 컬럼값에 해당하는 destination 값
+        for (User user : users) {
+            System.out.printf("%s : %-6s\n", user.getName(), destination.get(user.getColumn() / COLUMN));
+        }
+    }
+
+    private void printOneResult(int userIndex, ArrayList<String> destination) {
+        System.out.printf("%-6s\n", destination.get(userIndex));
     }
 
     private void printLadder(ArrayList<Line> lines) {
         for (Line line : lines) {
             printMultiLines(line.getPoints());
         }
-        System.out.println();
     }
 
     private void printMultiLines(ArrayList<Boolean> arr) {
         for (int i = 0; i < arr.size(); i++) {
             printIndividualLine(arr, i);
         }
-
         System.out.println();
     }
 
@@ -40,7 +99,6 @@ public class LadderOutput {
             printInterPoint(arr.get(index));
             return;
         }
-
         System.out.print("|");
     }
 
