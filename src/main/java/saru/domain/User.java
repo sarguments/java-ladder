@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class User {
     private static final int COLUMN = 2;
 
-    private String name;
+    private final ArrayList<Line> lineArrayList;
+    private final String name;
     private int row = 0;
     private int column;
-    private ArrayList<Line> lineArrayList;
 
     private enum MoveDir {
         LEFT,
@@ -30,16 +30,14 @@ public class User {
         return this.column;
     }
 
-    int decisionMoveDir() {
+    void decisionMoveDir() {
         // 유저 위치가 목적지가 아닐 동안
         while (!checkEndRow()) {
             moveUserPosition(checkUserMoveDir());
         }
-
-        return this.column;
     }
 
-    MoveDir checkUserMoveDir() {
+    private MoveDir checkUserMoveDir() {
         Line line = lineArrayList.get(row);
         if (line.checkSpecificPointHasLine(column - 1)) {
             return MoveDir.LEFT;
@@ -51,7 +49,7 @@ public class User {
         return MoveDir.DOWN;
     }
 
-    void moveUserPosition(MoveDir moveDir) {
+    private void moveUserPosition(MoveDir moveDir) {
         switch (moveDir) {
             case LEFT:
                 moveLeft();
@@ -65,24 +63,21 @@ public class User {
         }
     }
 
-    void moveLeft() {
+    private void moveLeft() {
         this.column -= COLUMN;
         moveDown();
     }
 
-    void moveRight() {
+    private void moveRight() {
         this.column += COLUMN;
         moveDown();
     }
 
-    void moveDown() {
+    private void moveDown() {
         this.row++;
     }
 
-    boolean checkEndRow() {
-        if (row == lineArrayList.size()) {
-            return true;
-        }
-        return false;
+    private boolean checkEndRow() {
+        return row == lineArrayList.size();
     }
 }

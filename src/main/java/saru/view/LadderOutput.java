@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LadderOutput {
+    public static final String RESULT_PROMPT = "결과를 보고 싶은 사람은?";
     private static final int COLUMN = 2;
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public LadderOutput() {
     }
@@ -18,7 +19,7 @@ public class LadderOutput {
         printDestination(ladderGame.getDestinations());
 
         boolean isAllResult = false;
-        while (isAllResult != true) {
+        while (!isAllResult) {
             isAllResult = promptResult(ladderGame);
         }
     }
@@ -31,12 +32,13 @@ public class LadderOutput {
     }
 
     private boolean promptResult(LadderGame ladderGame) {
+        System.out.println(RESULT_PROMPT);
+        
         String userChoice = getUserChoice();
         if (checkIsAllResult(ladderGame, userChoice)) return true;
 
         ArrayList<User> users = ladderGame.getUsers();
-        for (int i = 0; i < users.size(); i++) {
-            User user = users.get(i);
+        for (User user : users) {
             if (findResultDestination(ladderGame, userChoice, user)) return false;
         }
         return false;
@@ -64,8 +66,8 @@ public class LadderOutput {
     }
 
     private void printDestination(ArrayList<String> destinations) {
-        for (int i = 0; i < destinations.size(); i++) {
-            System.out.printf("%-6s", destinations.get(i));
+        for (String destination : destinations) {
+            System.out.printf("%-6s", destination);
         }
         System.out.print("\n\n");
     }

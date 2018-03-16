@@ -6,8 +6,8 @@ public class LadderGame {
     private static final int LIMIT = 4;
 
     private final ArrayList<User> users = new ArrayList<>();
-    private ArrayList<String> destinations = new ArrayList<>();
-    private ArrayList<Line> ladderLines = new ArrayList<>();
+    private final ArrayList<String> destinations = new ArrayList<>();
+    private final ArrayList<Line> ladderLines = new ArrayList<>();
 
     public LadderGame(int ladderHeight, String[] destination, String[] nameArray) {
         inputNames(nameArray);
@@ -37,9 +37,7 @@ public class LadderGame {
     }
 
     private void inputDestination(String[] destination) {
-        for (int i = 0; i < destination.length; i++) {
-            destinations.add(destination[i]);
-        }
+        Collections.addAll(destinations, destination);
     }
 
     private void initLadder(int ladderHeight, int columnNum) {
