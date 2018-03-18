@@ -55,15 +55,15 @@ public class LadderGameTest {
     // 글자 길이에 따른 체크 기능 테스트
     @Test
     public void inputTextCheckSuccess() {
-        String[] strArr2 = {"pobi", "honux", "jk"};
-        String[] destination2 = {"꽝", "치킨", "햄버거"};
-        assertTrue(ladderInput.checkValid(strArr2, destination2, 10));
+        String[] strArr = {"pobi", "honux", "jk"};
+        String[] destination = {"꽝", "치킨", "햄버거"};
+        assertTrue(ladderInput.checkValid(strArr, destination, 10));
     }
 
     @Test
     public void inputTextCheckFail() {
         String[] strArr = {"pobiii", "honux", "jk"};
-        String[] destination = {"꽝", "치킨", "햄버거"};
+        String[] destination = {"꽝", "치킨aaaa", "햄버거"};
         assertFalse(ladderInput.checkValid(strArr, destination, 10));
     }
 
@@ -79,16 +79,23 @@ public class LadderGameTest {
         assertThat(ladderGame.getLadderLines().get(0).getPoints().size(), is(5));
     }
 
-//    @Test
-//    public void ladderResult() {
-//        ArrayList<Line> lines = new ArrayList<>();
-//        lines.add(new Line(3));
-//        lines.add(new Line(3));
-//
-//        ArrayList<Boolean> pointList = lines.get(0).getPoints();
-//        pointList.set(1, true);
-//
-//        pointList = lines.get(1).getPoints();
-//        pointList.set(3, true);
-//    }
+    @Test
+    public void ladderResult() {
+        ArrayList<Line> lines = new ArrayList<>();
+        lines.add(new Line(5));
+        lines.add(new Line(5));
+
+        ArrayList<Boolean> pointList = lines.get(0).getPoints();
+        pointList.set(1, true);
+
+        pointList = lines.get(1).getPoints();
+        pointList.set(3, true);
+
+        Ladder ladder = new Ladder(lines);
+        ArrayList<Integer> result = ladder.climbLadder();
+
+        assertThat(result.get(0), is(4));
+        assertThat(result.get(1), is(0));
+        assertThat(result.get(2), is(2));
+    }
 }

@@ -7,7 +7,9 @@ import java.util.Scanner;
 
 public class LadderOutput {
     public static final String RESULT_PROMPT = "결과를 보고 싶은 사람은?";
-    private static final int COLUMN = 2;
+    public static final String ROW_BLANK_LINE = "     ";
+    public static final String COLUMN_LINE = "|";
+    public static final String ROW_LINE = "-----";
     private static final Scanner scanner = new Scanner(System.in);
 
     public LadderOutput() {
@@ -18,10 +20,10 @@ public class LadderOutput {
         printLadder(ladderGame.getLadderLines());
         printDestination(ladderGame.getDestinations());
 
-        boolean isAllResult = false;
-        while (!isAllResult) {
-            isAllResult = promptResult(ladderGame);
-        }
+//        boolean isAllResult = false;
+//        while (!isAllResult) {
+//            isAllResult = promptResult(ladderGame);
+//        }
     }
 
     private void printUserNames(ArrayList<User> users) {
@@ -33,31 +35,9 @@ public class LadderOutput {
 
     private boolean promptResult(LadderGame ladderGame) {
         System.out.println(RESULT_PROMPT);
-        
+
         String userChoice = getUserChoice();
-        if (checkIsAllResult(ladderGame, userChoice)) return true;
 
-        ArrayList<User> users = ladderGame.getUsers();
-        for (User user : users) {
-            if (findResultDestination(ladderGame, userChoice, user)) return false;
-        }
-        return false;
-    }
-
-    private boolean checkIsAllResult(LadderGame ladderGame, String userChoice) {
-        if (userChoice.equals("all")) {
-            printResultAll(ladderGame.getUsers(), ladderGame.getDestinations());
-            return true;
-        }
-        return false;
-    }
-
-    private boolean findResultDestination(LadderGame ladderGame, String userChoice, User user) {
-        if (user.getName().equals(userChoice)) {
-            // 개별 출력
-            printOneResult(user.getColumn() / COLUMN, ladderGame.getDestinations());
-            return true;
-        }
         return false;
     }
 
@@ -70,17 +50,6 @@ public class LadderOutput {
             System.out.printf("%-6s", destination);
         }
         System.out.print("\n\n");
-    }
-
-    private void printResultAll(ArrayList<User> users, ArrayList<String> destination) {
-        // 각 사용자의 컬럼값에 해당하는 destination 값
-        for (User user : users) {
-            System.out.printf("%s : %-6s\n", user.getName(), destination.get(user.getColumn() / COLUMN));
-        }
-    }
-
-    private void printOneResult(int userIndex, ArrayList<String> destination) {
-        System.out.printf("%-6s\n", destination.get(userIndex));
     }
 
     private void printLadder(ArrayList<Line> lines) {
@@ -101,14 +70,14 @@ public class LadderOutput {
             printInterPoint(arr.get(index));
             return;
         }
-        System.out.print("|");
+        System.out.print(COLUMN_LINE);
     }
 
     private void printInterPoint(boolean isTrue) {
         if (isTrue) {
-            System.out.print("-----");
+            System.out.print(ROW_LINE);
             return;
         }
-        System.out.print("     ");
+        System.out.print(ROW_BLANK_LINE);
     }
 }
