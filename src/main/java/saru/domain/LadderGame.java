@@ -8,28 +8,33 @@ public class LadderGame {
     private final ArrayList<User> users = new ArrayList<>();
     private final ArrayList<String> destinations = new ArrayList<>();
     private final ArrayList<Line> ladderLines = new ArrayList<>();
+    private ArrayList<Integer> result;
 
     public LadderGame(int ladderHeight, String[] destination, String[] nameArray) {
         inputNames(nameArray);
         inputDestination(destination);
         initLadder(ladderHeight, nameArray.length);
+        run();
+    }
 
-        // TODO ArrayList 리턴?
-        Ladder ladder = new Ladder(ladderLines);
-        ladder.climbLadder();
+    private void run() {
+        result = new Ladder(ladderLines).climbLadder();
     }
 
     public ArrayList<User> getUsers() {
         return users;
     }
 
-    // TODO Line 리스트 가져오기
+    public ArrayList<String> getDestinations() {
+        return destinations;
+    }
+
     public ArrayList<Line> getLadderLines() {
         return ladderLines;
     }
 
-    public ArrayList<String> getDestinations() {
-        return destinations;
+    public ArrayList<Integer> getResult() {
+        return result;
     }
 
     private void inputNames(String[] nameArr) {
@@ -49,10 +54,7 @@ public class LadderGame {
             ladderLines.add(new Line(realColumnNum));
         }
 
-
         initLadderRowProc();
-
-        // TODO Ladder 클래스?
     }
 
     // 유저가 3명일 경우 5 (3 * 2 - 1) .. 식 자체를 상수화 하기는 어려울 것 같음.

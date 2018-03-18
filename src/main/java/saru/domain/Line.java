@@ -34,7 +34,6 @@ public class Line {
         return false;
     }
 
-    // TODO : 라인의 특정 인덱스에 선이 있는지 없는지
     boolean checkSpecificPointHasLine(int index) {
         // 인덱스 범위 체크
         if (index < 0 || index > points.size() - 1) {

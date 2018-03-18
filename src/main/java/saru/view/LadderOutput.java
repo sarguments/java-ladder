@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LadderOutput {
-    public static final String RESULT_PROMPT = "결과를 보고 싶은 사람은?";
-    public static final String ROW_BLANK_LINE = "     ";
-    public static final String COLUMN_LINE = "|";
-    public static final String ROW_LINE = "-----";
     private static final Scanner scanner = new Scanner(System.in);
+
+    private static final String RESULT_PROMPT = "결과를 보고 싶은 사람은?";
+    private static final String ROW_BLANK_LINE = "     ";
+    private static final String COLUMN_LINE = "|";
+    private static final String ROW_LINE = "-----";
 
     public LadderOutput() {
     }
@@ -20,10 +21,10 @@ public class LadderOutput {
         printLadder(ladderGame.getLadderLines());
         printDestination(ladderGame.getDestinations());
 
-//        boolean isAllResult = false;
-//        while (!isAllResult) {
-//            isAllResult = promptResult(ladderGame);
-//        }
+        boolean isAllResult = false;
+        while (!isAllResult) {
+            isAllResult = promptResult(ladderGame);
+        }
     }
 
     private void printUserNames(ArrayList<User> users) {
@@ -33,12 +34,34 @@ public class LadderOutput {
         System.out.println();
     }
 
+    // TODO 리팩토링 필요
     private boolean promptResult(LadderGame ladderGame) {
         System.out.println(RESULT_PROMPT);
-
         String userChoice = getUserChoice();
 
+        ArrayList<User> users = ladderGame.getUsers();
+        ArrayList<Integer> results = ladderGame.getResult();
+        ArrayList<String> destination = ladderGame.getDestinations();
+
+        if (userChoice.equals("all")) {
+            printAllResult(users, results, destination);
+            return true;
+        }
+
+        for (int i = 0; i < users.size(); i++) {
+            if (userChoice.equals(users.get(i).getName())) {
+                System.out.println(destination.get(results.get(i) / 2));
+                break;
+            }
+        }
+
         return false;
+    }
+
+    private void printAllResult(ArrayList<User> users, ArrayList<Integer> results, ArrayList<String> destination) {
+        for (int i = 0; i < results.size(); i++) {
+            System.out.println(users.get(i).getName() + " : " + destination.get(results.get(i) / 2));
+        }
     }
 
     private String getUserChoice() {
