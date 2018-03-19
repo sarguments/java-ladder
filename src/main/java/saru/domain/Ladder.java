@@ -16,22 +16,17 @@ public class Ladder {
     }
 
     public ArrayList<Integer> climbLadder() {
-        Position pos = new Position();
-
-        // 반복 횟수
-        int rotationNum = (lines.get(0).getPointsLength() + 1) / 2;
-        return loopClimbLadderProc(pos, rotationNum);
+        return loopClimbLadderProc();
     }
 
-    private ArrayList<Integer> loopClimbLadderProc(Position pos, int rotationNum) {
+    private ArrayList<Integer> loopClimbLadderProc() {
         ArrayList<Integer> result = new ArrayList<>();
+        int rotationNum = (lines.get(0).getPointsLength() + 1) / 2;
 
         for (int i = 0; i < rotationNum; i++) {
             // 0, 2, 4... 순서로 구한다.
-            pos.setColumn(i * 2);
-            pos.setRow(0);
+            Position pos = new Position(0, i * 2);
             loopMovePosProc(pos);
-
             result.add(pos.getColumn());
         }
 
@@ -41,31 +36,33 @@ public class Ladder {
     private void loopMovePosProc(Position pos) {
         // 라인의 끝인지
         while (!checkEndRow(pos.getRow())) {
-            movePos(pos, pos.getRow(), pos.getColumn());
+            movePos(pos);
         }
     }
 
-    private void movePos(Position pos, int row, int column) {
-        switch (checkDir(row, column)) {
+    private void movePos(Position pos) {
+        switch (checkDir(pos.getRow(), pos.getColumn())) {
             case LEFT:
-                moveLeft(pos, row, column);
+                moveLeftDown(pos);
                 break;
             case RIGHT:
-                moveRight(pos, row, column);
+                moveRightDown(pos);
                 break;
             default:
-                pos.setRow(row + 1);
+                pos.moveDown();
         }
     }
 
-    private void moveRight(Position pos, int localRow, int localColumn) {
-        pos.setColumn(localColumn + 2);
-        pos.setRow(localRow + 1);
+    // TODO 이 로직을 Position에 구현할 수는 없을까
+    private void moveRightDown(Position pos) {
+        pos.moveRight();
+        pos.moveDown();
     }
 
-    private void moveLeft(Position pos, int localRow, int localColumn) {
-        pos.setColumn(localColumn - 2);
-        pos.setRow(localRow + 1);
+    // TODO Position의 상태 값을 변경한 후 새로운 Position을 생성해 메소드로 반환
+    private void moveLeftDown(Position pos) {
+        pos.moveLeft();
+        pos.moveDown();
     }
 
     private boolean checkEndRow(int rowIndex) {
