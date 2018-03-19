@@ -48,14 +48,22 @@ public class LadderOutput {
             return true;
         }
 
-        for (int i = 0; i < users.size(); i++) {
-            if (userChoice.equals(users.get(i).getName())) {
-                System.out.println(destination.get(results.get(i) / 2));
-                break;
+        int matchIndex = getUserMatchIndex(users, userChoice);
+        System.out.println(destination.get(results.get(matchIndex) / 2));
+
+        return false;
+    }
+
+    // TODO 인덴트를 못 줄이겠습니다.
+    int getUserMatchIndex(ArrayList<User> users, String userName) {
+
+        for(int i = 0; i < users.size(); i++) {
+            if (users.get(i).getName().equals(userName)) {
+                return i;
             }
         }
 
-        return false;
+        return -1;
     }
 
     private void printAllResult(ArrayList<User> users, ArrayList<Integer> results, ArrayList<String> destination) {

@@ -21,48 +21,47 @@ public class Ladder {
 
     private ArrayList<Integer> loopClimbLadderProc() {
         ArrayList<Integer> result = new ArrayList<>();
-        int rotationNum = (lines.get(0).getPointsLength() + 1) / 2;
 
-        for (int i = 0; i < rotationNum; i++) {
+        for (int i = 0; i < getRotateNum(); i++) {
             // 0, 2, 4... 순서로 구한다.
             Position pos = new Position(0, i * 2);
-            loopMovePosProc(pos);
+            pos = loopMovePosProc(pos);
             result.add(pos.getColumn());
         }
 
         return result;
     }
 
-    private void loopMovePosProc(Position pos) {
+    private Position loopMovePosProc(Position pos) {
         // 라인의 끝인지
         while (!checkEndRow(pos.getRow())) {
-            movePos(pos);
+            pos = movePos(pos);
         }
+
+        return pos;
     }
 
-    private void movePos(Position pos) {
+    private Position movePos(Position pos) {
         switch (checkDir(pos.getRow(), pos.getColumn())) {
             case LEFT:
-                moveLeftDown(pos);
-                break;
+                return moveLeftDown(pos);
             case RIGHT:
-                moveRightDown(pos);
-                break;
+                return moveRightDown(pos);
             default:
-                pos.moveDown();
+                return pos.moveDown();
         }
     }
 
-    // TODO 이 로직을 Position에 구현할 수는 없을까
-    private void moveRightDown(Position pos) {
-        pos.moveRight();
-        pos.moveDown();
+    private Position moveRightDown(Position pos) {
+        return pos.moveRightDown();
     }
 
-    // TODO Position의 상태 값을 변경한 후 새로운 Position을 생성해 메소드로 반환
-    private void moveLeftDown(Position pos) {
-        pos.moveLeft();
-        pos.moveDown();
+    private Position moveLeftDown(Position pos) {
+        return pos.moveLeftDown();
+    }
+
+    private int getRotateNum() {
+        return (lines.get(0).getPointsLength() + 1) / 2;
     }
 
     private boolean checkEndRow(int rowIndex) {

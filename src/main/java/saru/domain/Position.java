@@ -9,19 +9,18 @@ public class Position {
         this.column = column;
     }
 
-    void moveRight() {
-        this.column += 2;
+    Position moveRightDown() {
+        return new Position(this.row + 1, this.column + 2);
     }
 
-    void moveLeft() {
-        this.column -= 2;
+    Position moveLeftDown() {
+        return new Position(this.row + 1, this.column - 2);
     }
 
-    void moveDown() {
-        this.row += 1;
+    Position moveDown() {
+        return new Position(this.row + 1, this.column);
     }
 
-    // TODO  Position에 메시지를 보내 로직을 처리한 후 반환
     public int getRow() {
         return row;
     }
