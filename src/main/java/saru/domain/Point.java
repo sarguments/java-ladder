@@ -14,12 +14,13 @@ public class Point {
     }
 
     public int move() {
-        // 현재 Point(right)에 이어진 선이 있으면
+        // 현재 오른쪽에 이어진 선이 있으면 오른쪽로 간다.
+        // 현재 이어진 선이 있다는 것은 그 전(왼쪽)엔 없었다는 뜻
         if (direction.isCur()) {
             return index + 1;
         }
 
-        // 이전 Point(left)에 이어진 선이 있으면
+        // 이전에 오른쪽으로 이어진 선이 있었으면
         if (direction.isPrev()) {
             return index - 1;
         }
