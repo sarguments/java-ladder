@@ -2,7 +2,7 @@ package saru.view;
 
 import java.util.Scanner;
 
-public class LadderInput {
+public class InputLadder {
     private static final String INCORRECT_NAME_INPUT = "이름을 제대로 입력하세요";
     private static final String INCORRECT_DESTINATION = "실행 결과를 제대로 입력하세요";
     private static final String INCORRECT_HEIGHT_INPUT = "높이를 제대로 입력하세요";
@@ -13,7 +13,8 @@ public class LadderInput {
     private static final int MAX_NAME_LENGTH = 5;
     private static final Scanner scanner = new Scanner(System.in);
 
-    public LadderInput() {
+    public InputLadder() {
+        // empty
     }
 
     public boolean checkValid(String[] names, String[] destination, int height) {
@@ -31,13 +32,13 @@ public class LadderInput {
 
     public String[] getUserName() {
         System.out.println(INPUT_USER_NAMES);
-        String userInput = LadderInput.scanner.nextLine();
+        String userInput = InputLadder.scanner.nextLine();
         return userInput.split(REGEX);
     }
 
     public String[] getDestination() {
         System.out.println(INPUT_DESTINATION);
-        String userInput = LadderInput.scanner.nextLine();
+        String userInput = InputLadder.scanner.nextLine();
         return userInput.split(REGEX);
     }
 
@@ -45,7 +46,7 @@ public class LadderInput {
         String userInput;
 
         System.out.println(INPUT_MAX_LADDER_LENGTH);
-        userInput = LadderInput.scanner.next();
+        userInput = InputLadder.scanner.next();
         return Integer.parseInt(userInput);
     }
 

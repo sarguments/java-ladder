@@ -1,11 +1,12 @@
 package saru;
 
-import saru.domain.LadderGame;
-import saru.view.*;
+import saru.domain.*;
+import saru.view.InputLadder;
+import saru.view.OutputLadder;
 
-class LadderMain {
-    private static final LadderInput ladderInput = new LadderInput();
-    private static final LadderOutput ladderOutput = new LadderOutput();
+public class LadderMain {
+    private static final InputLadder ladderInput = new InputLadder();
+    private static final OutputLadder ladderOutput = new OutputLadder();
 
     public static void main(String[] args) {
         String[] nameArr, destination;

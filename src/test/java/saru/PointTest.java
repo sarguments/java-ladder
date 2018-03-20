@@ -1,0 +1,43 @@
+package saru;
+
+import org.junit.Test;
+import saru.domain.Point;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
+public class PointTest {
+    @Test
+    public void first() {
+        assertThat(Point.first(TRUE).move(), is(1));
+        assertThat(Point.first(FALSE).move(), is(0));
+    }
+
+    // 연결된 선이 없을 경우 first의 다음을 move 하면 1 그대로 간다.
+    @Test
+    public void next_stay() {
+        Point second = Point.first(FALSE).next(FALSE);
+        assertThat(second.move(), is(1));
+    }
+
+    // 연결된 선이 있을 경우 first의 다음을 move 하면 0으로 간다.
+    @Test
+    public void next_left() {
+        Point second = Point.first(TRUE).next(FALSE);
+        assertThat(second.move(), is(0));
+    }
+
+    @Test
+    public void next_right() {
+        Point second = Point.first(FALSE).next(TRUE);
+        assertThat(second.move(), is(2));
+    }
+
+    @Test
+    public void next() {
+        Point second = Point.first(TRUE).next();
+        assertThat(second.move(), is(0));
+    }
+}

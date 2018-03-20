@@ -3,90 +3,62 @@ package saru.domain;
 import java.util.*;
 
 public class LadderGame {
-    private static final int LIMIT = 4;
+    private List<String> names = new ArrayList<>();
+    private List<String> destinations = new ArrayList<>();
+    private List<LadderLine> lines = new ArrayList<>();
+    private List<Integer> result = new ArrayList<>();
 
-    private final ArrayList<User> users = new ArrayList<>();
-    private final ArrayList<String> destinations = new ArrayList<>();
-    private final ArrayList<Line> ladderLines = new ArrayList<>();
-    private ArrayList<Integer> result;
-
-    public LadderGame(int ladderHeight, String[] destination, String[] nameArray) {
-        inputNames(nameArray);
+    public LadderGame(int ladderHeight, String[] destination, String[] nameArr) {
         inputDestination(destination);
-        initLadder(ladderHeight, nameArray.length);
-        run();
-    }
+        inputNames(nameArr);
 
-    private void run() {
-        result = new Ladder(ladderLines).climbLadder();
-    }
+        initLines(nameArr.length, ladderHeight);
 
-    public ArrayList<User> getUsers() {
-        return users;
-    }
-
-    public ArrayList<String> getDestinations() {
-        return destinations;
-    }
-
-    public ArrayList<Line> getLadderLines() {
-        return ladderLines;
-    }
-
-    public ArrayList<Integer> getResult() {
-        return result;
+        // 실행
+        this.run();
     }
 
     private void inputNames(String[] nameArr) {
-        // TODO User 객체 생성
-        for (int i = 0; i < nameArr.length; i++) {
-            users.add(new User(nameArr[i]));
-        }
+        names.addAll(Arrays.asList(nameArr));
     }
 
     private void inputDestination(String[] destination) {
-        Collections.addAll(destinations, destination);
+        destinations.addAll(Arrays.asList(destination));
     }
 
-    private void initLadder(int ladderHeight, int columnNum) {
-        int realColumnNum = getRealColumnNum(columnNum);
-        for (int i = 0; i < ladderHeight; i++) {
-            ladderLines.add(new Line(realColumnNum));
-        }
-
-        initLadderRowProc();
-    }
-
-    // 유저가 3명일 경우 5 (3 * 2 - 1) .. 식 자체를 상수화 하기는 어려울 것 같음.
-    private int getRealColumnNum(int userNum) {
-        return userNum * 2 - 1;
-    }
-
-    private void initLadderRowProc() {
-        for (Line ladderLine : ladderLines) {
-            initLadderColumnProc(ladderLine);
+    private void initLines(int userNum, int lineNum) {
+        for (int i = 0; i < lineNum; i++) {
+            lines.add(LadderLine.init(userNum));
         }
     }
 
-    private void initLadderColumnProc(Line colLine) {
-        for (int i = 0; i < colLine.getPointsLength(); i++) {
-            drawLineProc(colLine, i);
+    private int getMovedIndex(List<LadderLine> lines, int movedIndex) {
+        for (LadderLine line : lines) {
+            movedIndex = line.move(movedIndex);
+        }
+        return movedIndex;
+    }
+
+    private void run() {
+        for (int i = 0; i < names.size(); i++) {
+            int movedIndex = getMovedIndex(lines, i);
+            result.add(movedIndex);
         }
     }
 
-    private void drawLineProc(Line colLine, int index) {
-        if (index % 2 == 1) {
-            drawRowLine(colLine, index);
-        }
+    public List<String> getNames() {
+        return names;
     }
 
-    private void drawRowLine(Line colLine, int index) {
-        int randNum = LadderGameUtil.getRand(LIMIT);
-        if (colLine.canDrawLine(randNum)) {
-            colLine.drawPoint(index, true);
-            return;
-        }
+    public List<String> getDestination() {
+        return destinations;
+    }
 
-        colLine.drawPoint(index, false);
+    public List<LadderLine> getLines() {
+        return lines;
+    }
+
+    public List<Integer> getResult() {
+        return result;
     }
 }
