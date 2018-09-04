@@ -1,26 +1,21 @@
 package saru.domain;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ladder {
-    private enum LadderDir {
-        LEFT,
-        RIGHT,
-        DOWN
-    }
+    private final List<Line> lines;
 
-    private final ArrayList<Line> lines;
-
-    public Ladder(ArrayList<Line> lines) {
+    public Ladder(List<Line> lines) {
         this.lines = lines;
     }
 
-    public ArrayList<Integer> climbLadder() {
+    public List<Integer> climbLadder() {
         return loopClimbLadderProc();
     }
 
-    private ArrayList<Integer> loopClimbLadderProc() {
-        ArrayList<Integer> result = new ArrayList<>();
+    private List<Integer> loopClimbLadderProc() {
+        List<Integer> result = new ArrayList<>();
 
         for (int i = 0; i < getRotateNum(); i++) {
             // 0, 2, 4... 순서로 구한다.
@@ -79,6 +74,12 @@ public class Ladder {
             return LadderDir.RIGHT;
 
         return LadderDir.DOWN;
+    }
+
+    private enum LadderDir {
+        LEFT,
+        RIGHT,
+        DOWN
     }
 }
 

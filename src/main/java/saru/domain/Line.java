@@ -1,9 +1,10 @@
 package saru.domain;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Line {
-    private final ArrayList<Boolean> points;
+    private final List<Boolean> points;
 
     public Line(int columnNum) {
         points = new ArrayList<>(columnNum);
@@ -12,7 +13,7 @@ public class Line {
         }
     }
 
-    public ArrayList<Boolean> getPoints() {
+    public List<Boolean> getPoints() {
         return points;
     }
 

@@ -1,14 +1,16 @@
 package saru.domain;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class LadderGame {
     private static final int LIMIT = 4;
 
-    private final ArrayList<User> users = new ArrayList<>();
-    private final ArrayList<String> destinations = new ArrayList<>();
-    private final ArrayList<Line> ladderLines = new ArrayList<>();
-    private ArrayList<Integer> result;
+    private final List<User> users = new ArrayList<>();
+    private final List<String> destinations = new ArrayList<>();
+    private final List<Line> ladderLines = new ArrayList<>();
+    private List<Integer> result;
 
     public LadderGame(int ladderHeight, String[] destination, String[] nameArray) {
         inputNames(nameArray);
@@ -21,26 +23,26 @@ public class LadderGame {
         result = new Ladder(ladderLines).climbLadder();
     }
 
-    public ArrayList<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public ArrayList<String> getDestinations() {
+    public List<String> getDestinations() {
         return destinations;
     }
 
-    public ArrayList<Line> getLadderLines() {
+    public List<Line> getLadderLines() {
         return ladderLines;
     }
 
-    public ArrayList<Integer> getResult() {
+    public List<Integer> getResult() {
         return result;
     }
 
     private void inputNames(String[] nameArr) {
         // TODO User 객체 생성
-        for (int i = 0; i < nameArr.length; i++) {
-            users.add(new User(nameArr[i]));
+        for (String aNameArr : nameArr) {
+            users.add(new User(aNameArr));
         }
     }
 

@@ -23,10 +23,7 @@ public class LadderInput {
         if (checkCondition(!checkNamesProc(names), INCORRECT_NAME_INPUT))
             return false;
 
-        if (checkCondition(!checkNamesProc(destination), INCORRECT_DESTINATION))
-            return false;
-
-        return true;
+        return !checkCondition(!checkNamesProc(destination), INCORRECT_DESTINATION);
     }
 
     public String[] getUserName() {

@@ -1,8 +1,10 @@
 package saru.view;
 
-import saru.domain.*;
+import saru.domain.LadderGame;
+import saru.domain.Line;
+import saru.domain.User;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class LadderOutput {
@@ -27,7 +29,7 @@ public class LadderOutput {
         }
     }
 
-    private void printUserNames(ArrayList<User> users) {
+    private void printUserNames(List<User> users) {
         for (User user : users) {
             System.out.printf("%-6s", user.getName());
         }
@@ -39,9 +41,9 @@ public class LadderOutput {
         System.out.println(RESULT_PROMPT);
         String userChoice = getUserChoice();
 
-        ArrayList<User> users = ladderGame.getUsers();
-        ArrayList<Integer> results = ladderGame.getResult();
-        ArrayList<String> destination = ladderGame.getDestinations();
+        List<User> users = ladderGame.getUsers();
+        List<Integer> results = ladderGame.getResult();
+        List<String> destination = ladderGame.getDestinations();
 
         if (userChoice.equals("all")) {
             printAllResult(users, results, destination);
@@ -55,9 +57,9 @@ public class LadderOutput {
     }
 
     // TODO 인덴트를 못 줄이겠습니다.
-    int getUserMatchIndex(ArrayList<User> users, String userName) {
+    private int getUserMatchIndex(List<User> users, String userName) {
 
-        for(int i = 0; i < users.size(); i++) {
+        for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getName().equals(userName)) {
                 return i;
             }
@@ -66,7 +68,7 @@ public class LadderOutput {
         return -1;
     }
 
-    private void printAllResult(ArrayList<User> users, ArrayList<Integer> results, ArrayList<String> destination) {
+    private void printAllResult(List<User> users, List<Integer> results, List<String> destination) {
         for (int i = 0; i < results.size(); i++) {
             System.out.println(users.get(i).getName() + " : " + destination.get(results.get(i) / 2));
         }
@@ -76,27 +78,27 @@ public class LadderOutput {
         return scanner.nextLine();
     }
 
-    private void printDestination(ArrayList<String> destinations) {
+    private void printDestination(List<String> destinations) {
         for (String destination : destinations) {
             System.out.printf("%-6s", destination);
         }
         System.out.print("\n\n");
     }
 
-    private void printLadder(ArrayList<Line> lines) {
+    private void printLadder(List<Line> lines) {
         for (Line line : lines) {
             printMultiLines(line.getPoints());
         }
     }
 
-    private void printMultiLines(ArrayList<Boolean> arr) {
+    private void printMultiLines(List<Boolean> arr) {
         for (int i = 0; i < arr.size(); i++) {
             printIndividualLine(arr, i);
         }
         System.out.println();
     }
 
-    private void printIndividualLine(ArrayList<Boolean> arr, int index) {
+    private void printIndividualLine(List<Boolean> arr, int index) {
         if (index % 2 == 1) {
             printInterPoint(arr.get(index));
             return;

@@ -1,14 +1,16 @@
 package saru;
 
 import saru.domain.LadderGame;
-import saru.view.*;
+import saru.view.LadderInput;
+import saru.view.LadderOutput;
 
 class LadderMain {
     private static final LadderInput ladderInput = new LadderInput();
     private static final LadderOutput ladderOutput = new LadderOutput();
 
     public static void main(String[] args) {
-        String[] nameArr, destination;
+        String[] nameArr;
+        String[] destination;
         int ladderHeight;
 
         do {

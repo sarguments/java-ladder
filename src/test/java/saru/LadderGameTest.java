@@ -1,11 +1,15 @@
 package saru;
 
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
+import saru.domain.Ladder;
+import saru.domain.LadderGame;
+import saru.domain.Line;
+import saru.view.LadderInput;
 
-import saru.domain.*;
-import saru.view.*;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -13,7 +17,7 @@ import static org.junit.Assert.*;
 public class LadderGameTest {
     private static final LadderInput ladderInput = new LadderInput();
     private Line line;
-    private ArrayList<Boolean> pointsList;
+    private List<Boolean> pointsList;
 
     @Before
     public void setUp() {
@@ -85,14 +89,14 @@ public class LadderGameTest {
         lines.add(new Line(5));
         lines.add(new Line(5));
 
-        ArrayList<Boolean> pointList = lines.get(0).getPoints();
+        List<Boolean> pointList = lines.get(0).getPoints();
         pointList.set(1, true);
 
         pointList = lines.get(1).getPoints();
         pointList.set(3, true);
 
         Ladder ladder = new Ladder(lines);
-        ArrayList<Integer> result = ladder.climbLadder();
+        List<Integer> result = ladder.climbLadder();
 
         assertThat(result.get(0), is(4));
         assertThat(result.get(1), is(0));

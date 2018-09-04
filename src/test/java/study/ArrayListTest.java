@@ -1,10 +1,10 @@
 package study;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
 
 public class ArrayListTest {
     @Test
