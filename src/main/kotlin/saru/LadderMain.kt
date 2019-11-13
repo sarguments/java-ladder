@@ -1,25 +1,23 @@
-package saru;
+package saru
 
-import saru.domain.LadderGame;
-import saru.view.LadderInput;
-import saru.view.LadderOutput;
+import saru.domain.LadderGame
+import saru.view.LadderInput
+import saru.view.LadderOutput
 
-class LadderMain {
-    private static final LadderInput ladderInput = new LadderInput();
-    private static final LadderOutput ladderOutput = new LadderOutput();
+fun main() {
+    val ladderInput = LadderInput()
+    val ladderOutput = LadderOutput()
 
-    public static void main(String[] args) {
-        String[] nameArr;
-        String[] destination;
-        int ladderHeight;
+    var nameArr: Array<String>
+    var destination: Array<String>
+    var ladderHeight: Int
 
-        do {
-            nameArr = ladderInput.getUserName();
-            destination = ladderInput.getDestination();
-            ladderHeight = ladderInput.getHeight();
-            ladderInput.flush();
-        } while (!ladderInput.checkValid(nameArr, destination, ladderHeight));
+    do {
+        nameArr = ladderInput.userName
+        destination = ladderInput.destination
+        ladderHeight = ladderInput.height
+        ladderInput.flush()
+    } while (!ladderInput.checkValid(nameArr, destination, ladderHeight))
 
-        ladderOutput.sendOutputObject(new LadderGame(ladderHeight, destination, nameArr));
-    }
+    ladderOutput.sendOutputObject(LadderGame(ladderHeight, destination, nameArr))
 }

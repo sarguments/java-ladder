@@ -1,63 +1,59 @@
-package saru.domain;
+package saru.domain
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*
 
-public class Line {
-    private final List<Boolean> points;
+class Line(columnNum: Int) {
+    private val points: MutableList<Boolean>
 
-    public Line(int columnNum) {
-        points = new ArrayList<>(columnNum);
-        for (int i = 0; i < columnNum; i++) {
-            points.add(false);
+    internal val pointsLength: Int
+        get() = points.size
+
+    init {
+        points = ArrayList(columnNum)
+        for (i in 0 until columnNum) {
+            points.add(false)
         }
     }
 
-    public List<Boolean> getPoints() {
-        return points;
+    fun getPoints(): MutableList<Boolean> {
+        return points
     }
 
     // 오른쪽 방향으로 진행하면서 왼쪽에 없으면 생성하도록
-    public boolean checkPointHasLeftLine(int index) {
+    fun checkPointHasLeftLine(index: Int): Boolean {
         if (index < 2) {
             // 1은 무조건 만들 수 있음
-            return true;
+            return true
         }
 
         // 인덱스 범위 체크
-        if (index < points.size() - 1) {
+        return if (index < points.size - 1) {
             // 기준 선 사이를 확인해야 하므로 - 2
             // 왼쪽에 선이 이미 있으면 false, 없으면 true
-            return (!points.get(index - 2));
-        }
+            !points[index - 2]
+        } else false
 
         // 범위에 맞지 않으면 false
-        return false;
     }
 
-    boolean checkSpecificPointHasLine(int index) {
+    internal fun checkSpecificPointHasLine(index: Int): Boolean {
         // 인덱스 범위 체크
-        if (index < 0 || index > points.size() - 1) {
-            return false;
-        }
+        return if (index < 0 || index > points.size - 1) {
+            false
+        } else points[index]
 
-        return points.get(index);
     }
 
-    int getPointsLength() {
-        return points.size();
+    internal fun canDrawLine(randNum: Int): Boolean {
+        return randNum == 1
     }
 
-    boolean canDrawLine(int randNum) {
-        return randNum == 1;
-    }
-
-    void drawPoint(int index, boolean isLine) {
+    internal fun drawPoint(index: Int, isLine: Boolean) {
         // 범위가 잘못 되었거나 왼쪽에 선이 이미 있을 경우 그냥 return
         if (!checkPointHasLeftLine(index)) {
-            return;
+            return
         }
 
-        points.set(index, isLine);
+        points[index] = isLine
     }
 }

@@ -1,78 +1,83 @@
-package saru.view;
+package saru.view
 
-import java.util.Scanner;
+import java.util.*
 
-public class LadderInput {
-    private static final String INCORRECT_NAME_INPUT = "이름을 제대로 입력하세요";
-    private static final String INCORRECT_DESTINATION = "실행 결과를 제대로 입력하세요";
-    private static final String INCORRECT_HEIGHT_INPUT = "높이를 제대로 입력하세요";
-    private static final String INPUT_USER_NAMES = "참여할 사람 이름을 입력하세요. (이름은 쉼표(,)로 구분하세요)";
-    private static final String INPUT_DESTINATION = "실행 결과를 입력하세요. (결과는 쉼표(,)로 구분하세요)";
-    private static final String INPUT_MAX_LADDER_LENGTH = "최대 사다리 높이는 몇 개인가요?";
-    private static final String REGEX = ",";
-    private static final int MAX_NAME_LENGTH = 5;
-    private static final Scanner scanner = new Scanner(System.in);
+class LadderInput {
 
-    public LadderInput() {
-    }
+    val userName: Array<String>
+        get() {
+            println(INPUT_USER_NAMES)
+            val userInput = LadderInput.scanner.nextLine()
+            return userInput.split(REGEX.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        }
 
-    public boolean checkValid(String[] names, String[] destination, int height) {
+    val destination: Array<String>
+        get() {
+            println(INPUT_DESTINATION)
+            val userInput = LadderInput.scanner.nextLine()
+            return userInput.split(REGEX.toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        }
+
+    val height: Int
+        get() {
+            val userInput: String
+
+            println(INPUT_MAX_LADDER_LENGTH)
+            userInput = LadderInput.scanner.next()
+            return Integer.parseInt(userInput)
+        }
+
+    fun checkValid(names: Array<String>, destination: Array<String>, height: Int): Boolean {
         if (checkCondition(height <= 0, INCORRECT_HEIGHT_INPUT))
-            return false;
+            return false
 
-        if (checkCondition(!checkNamesProc(names), INCORRECT_NAME_INPUT))
-            return false;
+        return if (checkCondition(
+                !checkNamesProc(names),
+                INCORRECT_NAME_INPUT
+            )
+        ) false else !checkCondition(!checkNamesProc(destination), INCORRECT_DESTINATION)
 
-        return !checkCondition(!checkNamesProc(destination), INCORRECT_DESTINATION);
     }
 
-    public String[] getUserName() {
-        System.out.println(INPUT_USER_NAMES);
-        String userInput = LadderInput.scanner.nextLine();
-        return userInput.split(REGEX);
+    fun flush() {
+        scanner.nextLine()
     }
 
-    public String[] getDestination() {
-        System.out.println(INPUT_DESTINATION);
-        String userInput = LadderInput.scanner.nextLine();
-        return userInput.split(REGEX);
-    }
-
-    public int getHeight() {
-        String userInput;
-
-        System.out.println(INPUT_MAX_LADDER_LENGTH);
-        userInput = LadderInput.scanner.next();
-        return Integer.parseInt(userInput);
-    }
-
-    public void flush() {
-        scanner.nextLine();
-    }
-
-    private boolean checkCondition(boolean condition, String errorMsg) {
+    private fun checkCondition(condition: Boolean, errorMsg: String): Boolean {
         if (condition) {
-            System.out.println(errorMsg);
-            return true;
+            println(errorMsg)
+            return true
         }
-        return false;
+        return false
     }
 
-    private boolean checkNamesProc(String[] names) {
-        int faultNum = 0;
+    private fun checkNamesProc(names: Array<String>): Boolean {
+        var faultNum = 0
 
-        for (String name : names) {
-            faultNum += countCheckNameFault(name);
+        for (name in names) {
+            faultNum += countCheckNameFault(name)
         }
 
-        return faultNum == 0;
+        return faultNum == 0
     }
 
-    private int countCheckNameFault(String name) {
-        return checkNameLength(name) ? 0 : 1;
+    private fun countCheckNameFault(name: String): Int {
+        return if (checkNameLength(name)) 0 else 1
     }
 
-    private boolean checkNameLength(String name) {
-        return name.length() <= MAX_NAME_LENGTH;
+    private fun checkNameLength(name: String): Boolean {
+        return name.length <= MAX_NAME_LENGTH
+    }
+
+    companion object {
+        private val INCORRECT_NAME_INPUT = "이름을 제대로 입력하세요"
+        private val INCORRECT_DESTINATION = "실행 결과를 제대로 입력하세요"
+        private val INCORRECT_HEIGHT_INPUT = "높이를 제대로 입력하세요"
+        private val INPUT_USER_NAMES = "참여할 사람 이름을 입력하세요. (이름은 쉼표(,)로 구분하세요)"
+        private val INPUT_DESTINATION = "실행 결과를 입력하세요. (결과는 쉼표(,)로 구분하세요)"
+        private val INPUT_MAX_LADDER_LENGTH = "최대 사다리 높이는 몇 개인가요?"
+        private val REGEX = ","
+        private val MAX_NAME_LENGTH = 5
+        private val scanner = Scanner(System.`in`)
     }
 }

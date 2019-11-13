@@ -1,82 +1,71 @@
-package saru.domain;
+package saru.domain
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*
 
-public class Ladder {
-    private final List<Line> lines;
+class Ladder(private val lines: List<Line>) {
 
-    public Ladder(List<Line> lines) {
-        this.lines = lines;
+    private val rotateNum: Int
+        get() = (lines[0].pointsLength + 1) / 2
+
+    fun climbLadder(): List<Int> {
+        return loopClimbLadderProc()
     }
 
-    public List<Integer> climbLadder() {
-        return loopClimbLadderProc();
-    }
+    private fun loopClimbLadderProc(): List<Int> {
+        val result = ArrayList<Int>()
 
-    private List<Integer> loopClimbLadderProc() {
-        List<Integer> result = new ArrayList<>();
-
-        for (int i = 0; i < getRotateNum(); i++) {
+        for (i in 0 until rotateNum) {
             // 0, 2, 4... 순서로 구한다.
-            Position pos = new Position(0, i * 2);
-            pos = loopMovePosProc(pos);
-            result.add(pos.getColumn());
+            var pos = Position(0, i * 2)
+            pos = loopMovePosProc(pos)
+            result.add(pos.column)
         }
 
-        return result;
+        return result
     }
 
-    private Position loopMovePosProc(Position pos) {
+    private fun loopMovePosProc(pos: Position): Position {
+        var returnPos = pos
         // 라인의 끝인지
-        while (!checkEndRow(pos.getRow())) {
-            pos = movePos(pos);
+        while (!checkEndRow(returnPos.row)) {
+            returnPos = movePos(returnPos)
         }
 
-        return pos;
+        return returnPos
     }
 
-    private Position movePos(Position pos) {
-        switch (checkDir(pos.getRow(), pos.getColumn())) {
-            case LEFT:
-                return moveLeftDown(pos);
-            case RIGHT:
-                return moveRightDown(pos);
-            default:
-                return pos.moveDown();
+    private fun movePos(pos: Position): Position {
+        return when (checkDir(pos.row, pos.column)) {
+            LadderDir.LEFT -> moveLeftDown(pos)
+            LadderDir.RIGHT -> moveRightDown(pos)
+            else -> pos.moveDown()
         }
     }
 
-    private Position moveRightDown(Position pos) {
-        return pos.moveRightDown();
+    private fun moveRightDown(pos: Position): Position {
+        return pos.moveRightDown()
     }
 
-    private Position moveLeftDown(Position pos) {
-        return pos.moveLeftDown();
+    private fun moveLeftDown(pos: Position): Position {
+        return pos.moveLeftDown()
     }
 
-    private int getRotateNum() {
-        return (lines.get(0).getPointsLength() + 1) / 2;
+    private fun checkEndRow(rowIndex: Int): Boolean {
+        return this.lines.size == rowIndex
     }
 
-    private boolean checkEndRow(int rowIndex) {
-        return this.lines.size() == rowIndex;
-    }
-
-    private LadderDir checkDir(int nowLine, int nowColumn) {
-        Line line = lines.get(nowLine);
+    private fun checkDir(nowLine: Int, nowColumn: Int): LadderDir {
+        val line = lines[nowLine]
 
         // 어디로 갈지 판단
         if (line.checkSpecificPointHasLine(nowColumn - 1))
-            return LadderDir.LEFT;
+            return LadderDir.LEFT
 
-        if (line.checkSpecificPointHasLine(nowColumn + 1))
-            return LadderDir.RIGHT;
+        return if (line.checkSpecificPointHasLine(nowColumn + 1)) LadderDir.RIGHT else LadderDir.DOWN
 
-        return LadderDir.DOWN;
     }
 
-    private enum LadderDir {
+    private enum class LadderDir {
         LEFT,
         RIGHT,
         DOWN

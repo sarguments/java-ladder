@@ -1,14 +1,11 @@
-package saru.domain;
+package saru.domain
 
-import java.util.Random;
+import java.util.*
 
-public class LadderGameUtil {
-    private static final Random random = new Random();
+object LadderGameUtil {
+    private val random = Random()
 
-    private LadderGameUtil() {
-    }
-
-    public static int getRand(int limit) {
-        return random.nextInt(limit);
+    fun getRand(limit: Int): Int {
+        return random.nextInt(limit)
     }
 }

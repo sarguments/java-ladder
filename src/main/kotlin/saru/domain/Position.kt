@@ -1,31 +1,16 @@
-package saru.domain;
+package saru.domain
 
-public class Position {
-    private int row;
-    private int column;
+class Position(val row: Int, val column: Int) {
 
-    public Position(int row, int column) {
-        this.row = row;
-        this.column = column;
+    internal fun moveRightDown(): Position {
+        return Position(this.row + 1, this.column + 2)
     }
 
-    Position moveRightDown() {
-        return new Position(this.row + 1, this.column + 2);
+    internal fun moveLeftDown(): Position {
+        return Position(this.row + 1, this.column - 2)
     }
 
-    Position moveLeftDown() {
-        return new Position(this.row + 1, this.column - 2);
-    }
-
-    Position moveDown() {
-        return new Position(this.row + 1, this.column);
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public int getColumn() {
-        return column;
+    internal fun moveDown(): Position {
+        return Position(this.row + 1, this.column)
     }
 }

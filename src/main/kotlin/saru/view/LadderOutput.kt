@@ -1,116 +1,113 @@
-package saru.view;
+package saru.view
 
-import saru.domain.LadderGame;
-import saru.domain.Line;
-import saru.domain.User;
+import saru.domain.LadderGame
+import saru.domain.Line
+import saru.domain.User
+import java.util.*
 
-import java.util.List;
-import java.util.Scanner;
+class LadderOutput {
 
-public class LadderOutput {
-    private static final Scanner scanner = new Scanner(System.in);
+    private val userChoice: String
+        get() = scanner.nextLine()
 
-    private static final String RESULT_PROMPT = "결과를 보고 싶은 사람은?";
-    private static final String ROW_BLANK_LINE = "     ";
-    private static final String COLUMN_LINE = "|";
-    private static final String ROW_LINE = "-----";
+    fun sendOutputObject(ladderGame: LadderGame) {
+        printUserNames(ladderGame.getUsers())
+        printLadder(ladderGame.getLadderLines())
+        printDestination(ladderGame.destinations)
 
-    public LadderOutput() {
-    }
-
-    public void sendOutputObject(LadderGame ladderGame) {
-        printUserNames(ladderGame.getUsers());
-        printLadder(ladderGame.getLadderLines());
-        printDestination(ladderGame.getDestinations());
-
-        boolean isAllResult = false;
+        var isAllResult = false
         while (!isAllResult) {
-            isAllResult = promptResult(ladderGame);
+            isAllResult = promptResult(ladderGame)
         }
     }
 
-    private void printUserNames(List<User> users) {
-        for (User user : users) {
-            System.out.printf("%-6s", user.getName());
+    private fun printUserNames(users: List<User>) {
+        for (user in users) {
+            System.out.printf("%-6s", user.name)
         }
-        System.out.println();
+        println()
     }
 
     // TODO 리팩토링 필요
-    private boolean promptResult(LadderGame ladderGame) {
-        System.out.println(RESULT_PROMPT);
-        String userChoice = getUserChoice();
+    private fun promptResult(ladderGame: LadderGame): Boolean {
+        println(RESULT_PROMPT)
+        val userChoice = userChoice
 
-        List<User> users = ladderGame.getUsers();
-        List<Integer> results = ladderGame.getResult();
-        List<String> destination = ladderGame.getDestinations();
+        val users = ladderGame.getUsers()
+        val results = ladderGame.result
+        val destination = ladderGame.destinations
 
-        if (userChoice.equals("all")) {
-            printAllResult(users, results, destination);
-            return true;
+        if (userChoice == "all") {
+            printAllResult(users, results!!, destination)
+            return true
         }
 
-        int matchIndex = getUserMatchIndex(users, userChoice);
-        System.out.println(destination.get(results.get(matchIndex) / 2));
+        val matchIndex = getUserMatchIndex(users, userChoice)
+        println(destination[results!![matchIndex] / 2])
 
-        return false;
+        return false
     }
 
     // TODO 인덴트를 못 줄이겠습니다.
-    private int getUserMatchIndex(List<User> users, String userName) {
+    private fun getUserMatchIndex(users: List<User>, userName: String): Int {
 
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getName().equals(userName)) {
-                return i;
+        for (i in users.indices) {
+            if (users[i].name == userName) {
+                return i
             }
         }
 
-        return -1;
+        return -1
     }
 
-    private void printAllResult(List<User> users, List<Integer> results, List<String> destination) {
-        for (int i = 0; i < results.size(); i++) {
-            System.out.println(users.get(i).getName() + " : " + destination.get(results.get(i) / 2));
+    private fun printAllResult(users: List<User>, results: List<Int>, destination: List<String>) {
+        for (i in results.indices) {
+            println(users[i].name + " : " + destination[results[i] / 2])
         }
     }
 
-    private String getUserChoice() {
-        return scanner.nextLine();
-    }
-
-    private void printDestination(List<String> destinations) {
-        for (String destination : destinations) {
-            System.out.printf("%-6s", destination);
+    private fun printDestination(destinations: List<String>) {
+        for (destination in destinations) {
+            System.out.printf("%-6s", destination)
         }
-        System.out.print("\n\n");
+        print("\n\n")
     }
 
-    private void printLadder(List<Line> lines) {
-        for (Line line : lines) {
-            printMultiLines(line.getPoints());
+    private fun printLadder(lines: List<Line>) {
+        for (line in lines) {
+            printMultiLines(line.getPoints())
         }
     }
 
-    private void printMultiLines(List<Boolean> arr) {
-        for (int i = 0; i < arr.size(); i++) {
-            printIndividualLine(arr, i);
+    private fun printMultiLines(arr: List<Boolean>) {
+        for (i in arr.indices) {
+            printIndividualLine(arr, i)
         }
-        System.out.println();
+        println()
     }
 
-    private void printIndividualLine(List<Boolean> arr, int index) {
+    private fun printIndividualLine(arr: List<Boolean>, index: Int) {
         if (index % 2 == 1) {
-            printInterPoint(arr.get(index));
-            return;
+            printInterPoint(arr[index])
+            return
         }
-        System.out.print(COLUMN_LINE);
+        print(COLUMN_LINE)
     }
 
-    private void printInterPoint(boolean isTrue) {
+    private fun printInterPoint(isTrue: Boolean) {
         if (isTrue) {
-            System.out.print(ROW_LINE);
-            return;
+            print(ROW_LINE)
+            return
         }
-        System.out.print(ROW_BLANK_LINE);
+        print(ROW_BLANK_LINE)
+    }
+
+    companion object {
+        private val scanner = Scanner(System.`in`)
+
+        private val RESULT_PROMPT = "결과를 보고 싶은 사람은?"
+        private val ROW_BLANK_LINE = "     "
+        private val COLUMN_LINE = "|"
+        private val ROW_LINE = "-----"
     }
 }
